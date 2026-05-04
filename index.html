@@ -1,233 +1,187 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<title>Untuk Movi — Dari Farel</title>
+  <meta charset="UTF-8">
+  <title>Kelulusan SMK Cordova</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-<style>
-*{box-sizing:border-box}
-body{
-    margin:0;
-    height:100vh;
-    overflow:hidden;
-    font-family:'Segoe UI',sans-serif;
-    color:white;
-    background: linear-gradient(270deg,#12002f,#000,#2b0036);
-    background-size:600% 600%;
-    animation:bgMove 20s ease infinite;
-}
-@keyframes bgMove{
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-}
+  <style>
+    body {
+      background: radial-gradient(circle at top, #1e3a8a, #020617);
+      transition: 0.5s;
+    }
 
-/* Particles */
-.particle{
-    position:absolute;
-    width:4px;height:4px;
-    background:white;
-    border-radius:50%;
-    opacity:.7;
-    animation:fall linear infinite;
-}
-@keyframes fall{
-    to{transform:translateY(110vh);opacity:0}
-}
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-/* Card */
-.card{
-    position:absolute;
-    top:50%;left:50%;
-    transform:translate(-50%,-50%) translateY(40px);
-    opacity:0;
-    background:rgba(255,255,255,.12);
-    padding:40px;
-    border-radius:30px;
-    backdrop-filter:blur(18px);
-    text-align:center;
-    max-width:420px;
-    animation:cardIn 2s ease forwards;
-    z-index:3;
-}
-@keyframes cardIn{
-    to{opacity:1;transform:translate(-50%,-50%)}
-}
+    .animate-fadeUp {
+      animation: fadeUp 1s ease forwards;
+    }
 
-p{line-height:1.7;font-size:16px}
+    @keyframes floatLove {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-200px) scale(1.5); opacity: 0; }
+    }
 
-/* Buttons */
-button{
-    padding:14px 30px;
-    border:none;
-    border-radius:50px;
-    font-size:16px;
-    cursor:pointer;
-}
-.yes{
-    background:linear-gradient(135deg,#ffd369,#ff9f43);
-    color:#333;
-    box-shadow:0 0 20px #ffd369;
-    animation:pulse 1.5s infinite;
-}
-@keyframes pulse{
-    0%{box-shadow:0 0 10px #ffd369}
-    50%{box-shadow:0 0 30px #ffd369}
-    100%{box-shadow:0 0 10px #ffd369}
-}
-.no{
-    background:#ff3b3b;
-    color:white;
-    position:absolute;
-    animation:float 4s ease-in-out infinite;
-}
-@keyframes float{
-    0%{transform:translate(0,0)}
-    50%{transform:translate(40px,-30px)}
-    100%{transform:translate(0,0)}
-}
-
-/* Love */
-.love{
-    position:absolute;
-    font-size:18px;
-    animation:loveUp 6s linear infinite;
-    opacity:.6;
-}
-@keyframes loveUp{
-    from{transform:translateY(100vh);opacity:0}
-    30%{opacity:.8}
-    to{transform:translateY(-10vh);opacity:0}
-}
-
-canvas{
-    position:fixed;
-    inset:0;
-    z-index:1;
-}
-
-#musicBtn{
-    position:fixed;
-    bottom:20px;right:20px;
-    background:rgba(255,255,255,.2);
-    border-radius:50%;
-    padding:14px;
-    cursor:pointer;
-    z-index:5;
-}
-</style>
+    .love {
+      position: fixed;
+      bottom: 0;
+      font-size: 20px;
+      animation: floatLove 3s linear forwards;
+    }
+  </style>
 </head>
 
-<body>
+<body class="text-white font-sans">
 
-<canvas id="fireworks"></canvas>
+<div class="min-h-screen flex items-center justify-center px-4">
+<div class="w-full max-w-3xl text-center animate-fadeUp">
 
-<audio id="music" loop>
-<source src="https://cdn.pixabay.com/download/audio/2022/10/20/audio_f2c6c98c93.mp3" type="audio/mpeg">
-</audio>
-<div id="musicBtn" onclick="toggleMusic()">🎵</div>
-
-<div class="card">
-<h1>🎆 Happy New Year 🎆</h1>
-<p>
-Movi,<br><br>
-Aku datang bukan membawa masa lalu,<br>
-tapi niat yang lebih dewasa.<br><br>
-Kalau aku masih orang yang sama,<br>
-namun dengan versi yang lebih baik…<br><br>
-Mau nggak kita mulai lagi?<br><br>
-— <b>Farel</b>
-</p>
-<button class="yes" onclick="yesClick()">Aku Mau 💖</button>
+<!-- LOGO -->
+<div class="flex justify-center mb-4">
+  <img src="logo.png" class="w-28 drop-shadow-[0_0_25px_rgba(59,130,246,0.7)]">
 </div>
 
-<button class="no" id="noBtn">Masih Ragu 🙈</button>
+<h1 class="text-4xl md:text-6xl font-bold text-blue-300">SMK CORDOVA</h1>
+<p class="text-gray-300 mt-2 mb-6">Pengumuman Kelulusan Tahun Ajaran 2026</p>
+
+<div class="bg-white/10 backdrop-blur-xl border border-blue-400/20 p-8 rounded-3xl shadow-2xl">
+
+<p class="text-blue-200 text-sm mb-4">Masukkan NIS untuk melihat hasil kelulusan</p>
+
+<div class="flex gap-2 mb-6">
+  <input id="nisn" type="text" placeholder="Masukkan NIS..." class="w-full px-4 py-3 rounded-xl text-black">
+  <button onclick="cekKelulusan()" class="px-6 py-3 bg-blue-400 text-black rounded-xl font-semibold hover:scale-105 transition">
+    Cek
+  </button>
+</div>
+
+<div id="hasil" class="hidden mt-6">
+
+<div class="grid md:grid-cols-2 gap-4 bg-black/40 rounded-xl p-6 border border-blue-300/20">
+
+<div>
+  <p class="text-gray-400 text-sm">Nama</p>
+  <p id="nama" class="mb-3 text-lg font-semibold"></p>
+
+  <p class="text-gray-400 text-sm">NIS</p>
+  <p id="nisnText"></p>
+</div>
+
+<div>
+  <p class="text-gray-400 text-sm">Status</p>
+  <p id="status" class="text-2xl font-bold mb-3"></p>
+
+  <p id="ucapan" class="text-blue-200 text-sm"></p>
+</div>
+
+</div>
+</div>
+</div>
+
+<p class="text-gray-400 text-sm mt-6">
+© 2026 SMK Cordova • Sistem Kelulusan Online
+</p>
+
+</div>
+</div>
 
 <script>
-/* MUSIC */
-const music=document.getElementById("music");
-function toggleMusic(){music.paused?music.play():music.pause()}
+const data = [
+  { nisn: "20234020", nama: "ALFIRA DINA AMARIYA", status: "LULUS" },
+  { nisn: "20234013", nama: "SHINTA AYU KURNIA NINGRUM", status: "LULUS" },
+  { nisn: "20234049", nama: "ZAKIYYA", status: "LULUS" },
+  { nisn: "20234019", nama: "AJIB NOR ROHMAN", status: "LULUS" },
+  { nisn: "20234000", nama: "INTAN AFIRA FEBRIANTI", status: "LULUS" },
+  { nisn: "20234034", nama: "INTAN NUR AINI", status: "LULUS" },
+  { nisn: "20234029", nama: "NUR SAFILA", status: "LULUS" },
+  { nisn: "20234046", nama: "RIZKI RAHMAD HANI", status: "LULUS" },
+  { nisn: "20234012", nama: "RISA AULIA", status: "LULUS" },
+  { nisn: "20233983", nama: "AHMAD FAIRUZ QOLBI", status: "LULUS" },
+  { nisn: "20233984", nama: "AHMAD MUWAFFAQ ZAINIL ASROR", status: "LULUS" },
+  { nisn: "20234270", nama: "MUHAMMAD ISWAN", status: "LULUS" },
+  { nisn: "20233987", nama: "ALIVIA PUTRI DWI RAHMANIA", status: "LULUS" },
 
-/* Particles */
-for(let i=0;i<60;i++){
-    const p=document.createElement("div");
-    p.className="particle";
-    p.style.left=Math.random()*100+"vw";
-    p.style.animationDuration=5+Math.random()*5+"s";
-    p.style.animationDelay=Math.random()*5+"s";
-    document.body.appendChild(p);
-}
+  { nisn: "20234044", nama: "NOVYA LARASATI", status: "TIDAK LULUS" },
 
-/* Love */
-setInterval(()=>{
-    const l=document.createElement("div");
-    l.className="love";
-    l.innerHTML="❤️";
-    l.style.left=Math.random()*100+"vw";
-    document.body.appendChild(l);
-    setTimeout(()=>l.remove(),6000);
-},1200);
+  { nisn: "20234032", nama: "FIRYAL NAILAL FARAH", status: "LULUS" },
+  { nisn: "20232042", nama: "NAJMA LAILI MUFLIHAH", status: "LULUS" },
+  { nisn: "20234033", nama: "INDAH SYAFA'ATUN NI'MAH", status: "LULUS" },
+  { nisn: "202320234041", nama: "AMANAH BUNGA RAGIL LESTARI", status: "LULUS" },
+  { nisn: "20233995", nama: "DWI LUTFIANA SARI", status: "LULUS" },
+  { nisn: "20234039", nama: "MUHAMMAD HAIKAL ALIF MALIKI", status: "LULUS" },
+  { nisn: "20233990", nama: "ANIQOH NISA'UL KHOIR", status: "LULUS" },
+  { nisn: "20234610", nama: "MUHAMMAD NUR FAUZI", status: "LULUS" },
+  { nisn: "20234002", nama: "KHILYATUZ ZAHRIYAH FIRDAUS", status: "LULUS" },
+  { nisn: "20234006", nama: "MUHAMMAD KHOIRUZ ZAMZAMI", status: "LULUS" },
+  { nisn: "20234045", nama: "RATU LIVIA RACHEL ANANDITA", status: "LULUS" },
+  { nisn: "20234031", nama: "FAUZI FAIDULLAH ZIDAN ATTAUFIQI", status: "LULUS" },
+  { nisn: "20234024", nama: "ARFIAN ZAHRIL HAKIM", status: "LULUS" },
+  { nisn: "20234027", nama: "DIA AYU ASHIVA NURROHMA", status: "LULUS" },
+  { nisn: "20234043", nama: "NEZA INDIRA PUTRI", status: "LULUS" },
+  { nisn: "20234005", nama: "MUHAMMAD HAIDAR AZMI AL BIRRU", status: "LULUS" },
+  { nisn: "20234003", nama: "MOH FABRIAN ZIDNI ZULFA", status: "LULUS" },
+  { nisn: "20234025", nama: "BELICIA DEANA", status: "LULUS" },
+  { nisn: "20234014", nama: "TIARA SANIA AGUSTIN", status: "LULUS" },
+  { nisn: "20234018", nama: "AHMAD REZA ARDIYANSYAH", status: "LULUS" },
+  { nisn: "20234030", nama: "FAREL ADHI FIRMANSYAH", status: "LULUS" },
+  { nisn: "20234021", nama: "AMANAH BUNGA RAGIL LESTARI", status: "LULUS" }
+];
 
-/* NO button AI */
-const noBtn=document.getElementById("noBtn");
-let x=innerWidth/2+150,y=innerHeight/2+150;
-noBtn.style.left=x+"px";noBtn.style.top=y+"px";
-document.addEventListener("mousemove",e=>{
-    const r=noBtn.getBoundingClientRect();
-    const dx=e.clientX-(r.left+r.width/2);
-    const dy=e.clientY-(r.top+r.height/2);
-    if(Math.hypot(dx,dy)<150){
-        x+=dx>0?-40:40;
-        y+=dy>0?-40:40;
-        x=Math.max(0,Math.min(innerWidth-r.width,x));
-        y=Math.max(0,Math.min(innerHeight-r.height,y));
-        noBtn.style.left=x+"px";
-        noBtn.style.top=y+"px";
+function cekKelulusan() {
+  const input = document.getElementById("nisn").value.trim();
+  const siswa = data.find(s => s.nisn === input);
+
+  if (siswa) {
+    document.getElementById("nama").innerText = siswa.nama;
+    document.getElementById("nisnText").innerText = siswa.nisn;
+
+    const statusEl = document.getElementById("status");
+    const ucapan = document.getElementById("ucapan");
+
+    document.getElementById("hasil").classList.remove("hidden");
+
+    if (siswa.status === "LULUS") {
+      statusEl.innerText = "🎉 LULUS";
+      statusEl.style.color = "#22c55e";
+
+      ucapan.innerText =
+        "Selamat! Kamu berhasil menyelesaikan pendidikan di SMK Cordova. Semoga sukses ke depannya!";
+
+      document.body.style.background = "radial-gradient(circle at top, #1e3a8a, #020617)";
+
+      const end = Date.now() + 3000;
+      (function frame() {
+        confetti({ particleCount: 5, spread: 70, origin: { y: 0.6 } });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+
+      for (let i = 0; i < 25; i++) {
+        const love = document.createElement("div");
+        love.classList.add("love");
+        love.innerHTML = "💙";
+        love.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(love);
+        setTimeout(() => love.remove(), 3000);
+      }
+
+    } else {
+      statusEl.innerText = "❌ TIDAK LULUS";
+      statusEl.style.color = "#ef4444";
+
+      ucapan.innerText =
+        "Hasil ini mungkin tidak sesuai harapan, tapi ini bukan akhir dari perjalananmu. Tetaplah kuat, bangkit, dan jangan pernah menyerah.";
+
+      document.body.style.background = "radial-gradient(circle at top, #450a0a, #020617)";
     }
-});
 
-/* YES */
-function yesClick(){
-document.body.innerHTML=`
-<div style="display:flex;align-items:center;justify-content:center;height:100vh;text-align:center;">
-<div>
-<h1>🥹❤️</h1>
-<p style="font-size:18px;line-height:1.7;">
-Makasih, Movi.<br>
-Tahun ini bukan mengulang,<br>
-tapi melanjutkan 🤍<br><br>
-— Farel
-</p>
-<h2>✨ Happy New Year ✨</h2>
-</div>
-</div>`;
+  } else {
+    alert("NIS tidak ditemukan!");
+  }
 }
-
-/* FIREWORKS */
-const c=document.getElementById("fireworks");
-const ctx=c.getContext("2d");
-c.width=innerWidth;c.height=innerHeight;
-let parts=[];
-function boom(){
-const x=Math.random()*c.width,y=Math.random()*c.height/2;
-const col=["#ff7675","#74b9ff","#ffeaa7","#fd79a8","#55efc4"];
-for(let i=0;i<90;i++){
-parts.push({x,y,a:Math.random()*Math.PI*2,s:Math.random()*6+2,l:90,c:col[Math.floor(Math.random()*col.length)]});
-}}
-function draw(){
-ctx.clearRect(0,0,c.width,c.height);
-parts.forEach((p,i)=>{
-p.x+=Math.cos(p.a)*p.s;
-p.y+=Math.sin(p.a)*p.s;
-p.l--;
-ctx.fillStyle=p.c;
-ctx.beginPath();ctx.arc(p.x,p.y,2,0,Math.PI*2);ctx.fill();
-if(p.l<=0)parts.splice(i,1);
-});
-requestAnimationFrame(draw);
-}
-setInterval(boom,800);
-draw();
 </script>
 
 </body>
